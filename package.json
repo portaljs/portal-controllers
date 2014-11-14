@@ -1,0 +1,19 @@
+{
+  "name": "portal-controllers",
+  "version": "0.0.1",
+  "description": "Base portal controllers to mixin to your own controllers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/portaljs/portal-controllers.git"
+  },
+  "author": "Brian <javascriptismagic@gmail.com>",
+  "license": "Public Domain (UNLISCENSE)",
+  "bugs": {
+    "url": "https://github.com/portaljs/portal-controllers/issues"
+  },
+  "homepage": "https://github.com/portaljs/portal-controllers"
+}
