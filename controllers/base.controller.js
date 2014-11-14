@@ -129,7 +129,7 @@ module.exports = {
 			}
 			return [results];
 		},
-		find: function (query, options) {
+		find: [['query', 'options'], function (query, options) {
 			if (options && options.more) { options.limit += 1; }
 			const results = this.mongo.get(this.collection).find(filter.bind(this)(query, /^read/), options).wait()
 				.map(function (item) {
@@ -149,11 +149,11 @@ module.exports = {
 				return [results, more];
 			}
 			return [results];
-		},
-		count: function (query, options) {
+		}],
+		count: [['query', 'options'], function (query, options) {
 			return [this.mongo.get(this.collection).count(filter.bind(this)(query, /^read/), options).wait()];
-		},
-		create: function (document) {
+		}],
+		create: [['object'], function (document) {
 			document.__permissions = (Array.isArray(document.__permissions) ? document.__permissions : []).concat([
 				'read:account:' + this.session.user._id,
 				'write:account:' + this.session.user._id
@@ -171,11 +171,11 @@ module.exports = {
 					return reducedObj;
 				}, {}));
 			return [this.mongo.get(this.collection).insert(document).wait()]
-		},
-		remove: function (query) {
+		}],
+		remove: [['query'], function (query) {
 			return [this.mongo.get(this.collection).update(filter.bind(this)(query, /^write/), { $set: { __removed: Date.now() } }).wait()]
-		},
-		update: function (query, document) {
+		}],
+		update: [['query', 'object'], function (query, document) {
 			const setDocument = {},
 				unsetDocument = {},
 				update = {},
@@ -212,8 +212,8 @@ module.exports = {
 			setDocument.__search = JSON.stringify(search);
 			update.$set = setDocument;
 			return [this.mongo.get(this.collection).update(filter.bind(this)(query, /^write/), update).wait()];
-		},
-		types: function (query, options) {
+		}],
+		types: [['query', 'options'], function (query, options) {
 			if (options && options.more) { options.limit += 1; }
 			const results = this.mongo.get(this.collection + '_types').find(filter.bind(this)(query, /^read/), options).wait()
 				.map(function (item) {
@@ -233,8 +233,8 @@ module.exports = {
 				return [results, more];
 			}
 			return [results];
-		},
-		items: function (query, options) {
+		}],
+		items: [['query', 'options'], function (query, options) {
 			if (options && options.more) { options.limit += 1; }
 			const results = this.mongo.get(this.collection + '_items').find(filter.bind(this)(query, /^read/), options).wait()
 				.map(function (item) {
@@ -254,7 +254,7 @@ module.exports = {
 				return [results, more];
 			}
 			return [results];
-		}
+		}]
 	},
 	models: {
 		falsy: function (object) {
