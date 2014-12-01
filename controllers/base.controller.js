@@ -108,7 +108,7 @@ module.exports = {
 			if (!this.session.user.__admin) { throw new this.ClientError('error:authentication:authenticate'); }
 			return Array.prototype.slice.call(arguments);
 		}],
-		adminfind: function (query, options) {
+		adminfind: [['query', 'options'], function (query, options) {
 			if (options && options.more) { options.limit += 1; }
 			const results = this.mongo.get(this.collection).find(adminfilter.bind(this)(query, /^read/), options).wait()
 				.map(function (item) {
@@ -128,7 +128,7 @@ module.exports = {
 				return [results, more];
 			}
 			return [results];
-		},
+		}],
 		find: [['query', 'options'], function (query, options) {
 			if (options && options.more) { options.limit += 1; }
 			const results = this.mongo.get(this.collection).find(filter.bind(this)(query, /^read/), options).wait()
