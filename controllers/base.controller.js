@@ -118,7 +118,7 @@ module.exports = {
 			if (options && options.more) {
 				options.limit -= 1;
 				query.search = query.__search;
-				Object.keys(query).forEach(function (key) {
+				Object.keys(query).forEach(function () {
 					if (query[key] && query[key].$regex) {
 						query[key] = { $search: query[key].search };
 					}
@@ -139,7 +139,7 @@ module.exports = {
 			if (options && options.more) {
 				options.limit -= 1;
 				query.search = query.__search;
-				Object.keys(query).forEach(function (key) {
+				Object.keys(query).forEach(function () {
 					if (query[key] && query[key].$regex) {
 						query[key] = { $search: query[key].search };
 					}

@@ -1,6 +1,6 @@
 {
   "name": "portal-controllers",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "Base portal controllers to mixin to your own controllers.",
   "main": "index.js",
   "scripts": {
