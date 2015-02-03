@@ -290,7 +290,7 @@ module.exports = {
 		string: function (string) {
 			return 'string' === typeof string ? string : (JSON.stringify(string) || '');
 		},
-		validjsonstring: function (json) {
+		validJSONString: function (json) {
 			try {
 				JSON.parse(this.models.validstring.call(this, json));
 				return json;
@@ -301,16 +301,16 @@ module.exports = {
 		object: function (object) {
 			return ((object && object.constructor === Object) ? object : {});
 		},
-		validstring: function (string) {
+		validString: function (string) {
 			if ('string' !== typeof string) { throw new this.ClientError('error:validation:string'); }
 			return string;
 		},
-		validphone: function (phone) {
+		validPhone: function (phone) {
 			phone = phone.replace(/\D+/g, '');
 			if (phone.length < 10) { throw new this.ClientError('error:validation:phone'); }
 			return phone;
 		},
-		validarray: function (array) {
+		validArray: function (array) {
 			if (!Array.isArray(array)) { throw new this.ClientError('error:validation:array'); }
 			return array;
 		},
@@ -321,7 +321,7 @@ module.exports = {
 			}
 			return phone;
 		},
-		validoidarray: function(array) {
+		validOidArray: function(array) {
 			return this.model('array', array).map(function (oid) {
 				return this.model('validoid', oid);
 			}, this);
@@ -337,7 +337,7 @@ module.exports = {
 			number = 1 * number;
 			return (number !== number ?  0 : number);
 		},
-		validemail: function (email) {
+		validEmail: function (email) {
 			if (email !== '' && !/^.+?@.+?\..+?$/.test(email)) {
 				throw new this.ClientError('error:validation:email');
 			}
@@ -354,7 +354,7 @@ module.exports = {
 				('string' === typeof bool &&
 					'true' === bool.toLowerCase()));
 		},
-		validdomainname: function (domain) {
+		validDomainName: function (domain) {
 			domain = ('' + (domain || '')).toLowerCase().replace(/\s+/g, '');
 			if (!/^.+?\..+?$/.test(domain)) {
 				throw new this.ClientError('error:validation:domain');
@@ -373,7 +373,7 @@ module.exports = {
 				limit: 0|options.limit > 1000 ? 1000 : 0|options.limit||25,
 			};
 		},
-		validoid: function (id) {
+		validOid: function (id) {
 			if(id) {
 				if (id.$oid) { id = id.$oid; }
 				if (id instanceof this.fibers.mongo.ObjectID) { return id; }
@@ -427,7 +427,7 @@ module.exports = {
 			}
 			return query;
 		},
-		sqlquery: function (query) {
+		sqlQuery: function (query) {
 			function cleanFilter(filter) {
 				var i = 0;
 				if (Array.isArray(filter)) {
