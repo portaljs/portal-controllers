@@ -36,7 +36,7 @@ function adminfilter(filter, permissions, includeRemoved) {
 	}
 	filter = filter || {};
 	//TODO: delete $where: scripts
-	
+
 	//remove permission checking on permissions
 	// if (permissions instanceof RegExp) {
 		// permissions = Object.keys(this.session.permissions).filter(function (permission) { return (permissions.test(permission) && this.session.permissions[permission] > Date.now()); }, this);
@@ -46,8 +46,8 @@ function adminfilter(filter, permissions, includeRemoved) {
 	// if (Array.isArray(permissions) && permissions.length > 0) {
 		// filter.__permissions = { $in: permissions };
 	// }
-	
-	
+
+
 	if (!includeRemoved) {
 		filter.__removed = null;
 	}
@@ -161,7 +161,7 @@ module.exports = {
 			document.__owner_id= this.session.user._id;
 			document._created = Date.now();
 			document._updated = Date.now();
-			
+
 			document.__search = JSON.stringify(Object.keys(document)
 				.sort()
 				.reduce(function (reducedObj, key) {
@@ -206,7 +206,7 @@ module.exports = {
 			});
 			Object.keys(unsetDocument)
 				.forEach(function (key) { delete search[key]; });
-			
+
 			Object.keys(setDocument)
 				.forEach(function (key) { search[key] = setDocument[key]; });
 			setDocument.__search = JSON.stringify(search);
@@ -376,6 +376,7 @@ module.exports = {
 		validOid: function (id) {
 			if(id) {
 				if (id.$oid) { id = id.$oid; }
+				if (id._id) { id = id._id; }
 				if (id instanceof this.fibers.mongo.ObjectID) { return id; }
 				id = this.models.string.call(this, id);
 				try { if(id.length >= 24) { return this.mongo.oid(id); } } catch (e) {}
