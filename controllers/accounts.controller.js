@@ -1,6 +1,6 @@
 'use strict';
 const crypto = require('crypto'),
-    parseToken = /^[\w+/]{84}\|(\d+)/,
+	parseToken = /^[\w+/]{84}\|(\d+)/,
 	vowels = 'aeiouy'.split(''),
 	consonents = 'bcdfghjklmnpqrstvwxz'.split('');
 function sanitizeAccount(item) {
